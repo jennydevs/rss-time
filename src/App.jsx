@@ -3,22 +3,45 @@ import { useState, useEffect } from 'react';
 
 function Article({item}) {
     return (
-        <div>
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
-            <p>{item.link}</p>
-            <a href={item.link}>{item.link}</a>
-        </div>
+        <>
+            <h2><a href={item.link}>{item.title}</a></h2>
+        </>
     );
 }
 
 
-function parseData(doc) {
-    var items = doc.getElementsByTagName('item');
+function ChannelDetails({data}) {
+    return (
+        <>
+            <h1><a href={data.link}>{data.title}</a></h1>
+        </>
+    );
+}
 
+function getChannelData(doc) {
+    let channel = doc.getElementsByTagName('channel');
+    const tags = ['title', 'link', 'description', 'language', 'docs', 'ttl'];
+
+    let content = {};
+    for (let j = 0; j < tags.length; j++) {
+        let tag_items = channel[0].getElementsByTagName(tags[j]);
+        if (tag_items.length != 0) {
+            content[tags[j]] = tag_items[0].textContent;
+        } 
+        else {
+            content[tags[j]] = null;
+        }
+    }
+
+    return (<ChannelDetails data={content}/>);
+}
+
+
+function getItemsData(doc) {
+    let items = doc.getElementsByTagName('item');
     const tags = ['title', 'link', 'description', 'guid', 'pubDate'];
 
-    var items_list = [];
+    let items_list = [];
     for (let i = 0; i < items.length; i++) {
         var content = {};
         for (let j = 0; j < tags.length; j++) {
@@ -39,7 +62,8 @@ function parseData(doc) {
 
 
 function App(){
-    const [rss_articles, setArticles] = useState([]); 
+    const [channel, setChannel] = useState([]);
+    const [articles, setArticles] = useState([]); 
 
     useEffect(() => {
         async function getRSSFeed() {
@@ -48,10 +72,10 @@ function App(){
                 return response.text();
             })
             .then((rss_feed) => {
-                var parser = new DOMParser();
-                var xml_doc = parser.parseFromString(rss_feed, "text/xml");
-
-                setArticles(parseData(xml_doc))
+                let parser = new DOMParser();
+                let xml_doc = parser.parseFromString(rss_feed, "text/xml");
+                setChannel(getChannelData(xml_doc));
+                setArticles(getItemsData(xml_doc))
             })
             .catch((error) => {
                 console.error(error);
@@ -63,13 +87,8 @@ function App(){
 
     return(
         <>
-            {
-                !rss_articles ? 
-                    <p>Loading...</p> :
-                    <div>
-                        {rss_articles}
-                    </div>
-            }
+            { !channel ? <p>Loading</p> : <div>{channel}</div> }
+            { !articles ? <p>Loading...</p> : <div>{articles} </div> }
         </>
     );
 }
