@@ -3,8 +3,8 @@ import Carousel from "./Carousel.jsx";
 
 function FeedGroup({data}) {
     return (
-        <div>
-            <header>{data[0].title}</header>
+        <div className='feed-group'>
+            <h2>{data[0].title}</h2>
             <Carousel articles={data[0].articles}/>
         </div>
     );

@@ -1,5 +1,4 @@
-import rehypeSanitize from 'rehype-sanitize'
-import './App.css'
+import rehypeSanitize from 'rehype-sanitize';
 
 import { useState, useEffect } from 'react';
 
