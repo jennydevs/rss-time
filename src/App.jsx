@@ -1,10 +1,18 @@
+import rehypeSanitize from 'rehype-sanitize'
+import './App.css'
+
 import { useState, useEffect } from 'react';
+
+import Home from './pages/Home.jsx';
 
 
 function Article({item}) {
+    const description = item.description;
+
     return (
         <>
             <h2><a href={item.link}>{item.title}</a></h2>
+            {/* <div dangerouslySetInnerHTML={{__html: description}}/>  */}
         </>
     );
 }
@@ -82,14 +90,15 @@ function App(){
             });
         }
 
-        getRSSFeed();
+        // getRSSFeed();
     }, []);
 
     return(
-        <>
-            { !channel ? <p>Loading</p> : <div>{channel}</div> }
-            { !articles ? <p>Loading...</p> : <div>{articles} </div> }
-        </>
+        <div className='app'>
+            <Home/>
+            {/* { !channel ? <p>Loading</p> : <div>{channel}</div> }
+            { !articles ? <p>Loading...</p> : <div>{articles} </div> } */}
+        </div>
     );
 }
 
