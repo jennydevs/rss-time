@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import FeedBlob from './FeedBlob.jsx';
 
-function FeedList({data}) {
-    // const [update_link, setUpdateLink] = useState("");
 
+function FeedList({feed_links}) {
     return (
         <>
-        {console.log(data)}
-            {!data ? <p>no</p>: <p>{console.log(data)}</p>}
-        
+            {
+                feed_links.length == 0 ? <p>Loading...</p> :
+                    feed_links.map((feed_link) => 
+                        <li className='feed-info'><FeedBlob key={0} feed_info={feed_link}/></li>
+            )}
         </>
     );
 }

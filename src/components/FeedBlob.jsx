@@ -1,9 +1,9 @@
 
 
-function FeedBlob() {
+function FeedBlob({feed_info}) {
     return (
         <>
-            <h3>Feed name</h3>
+            <h3>{feed_info}</h3>
         </>
     );
 }
