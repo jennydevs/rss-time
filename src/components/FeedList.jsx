@@ -1,9 +1,13 @@
+import { useState } from 'react';
 
+function FeedList({data}) {
+    // const [update_link, setUpdateLink] = useState("");
 
-function FeedList() {
     return (
         <>
-            
+        {console.log(data)}
+            {!data ? <p>no</p>: <p>{console.log(data)}</p>}
+        
         </>
     );
 }
