@@ -6,7 +6,6 @@ html {
 body{
   margin: 0;
   display: flex;
-  justify-content: center;
   /* flex: 1; */
   min-height: 100%;
 }
@@ -22,15 +21,18 @@ body{
   -moz-osx-font-smoothing: grayscale;
 
   display: flex;
+  justify-content: center;
+  flex: 1;
 }
 
 .container {
   display: flex;
   flex: 1;
   flex-direction: column;
-  max-width: 50em;
   background-color: white;
   border-radius: 8px;
+
+  max-width: 50em;
   /* height: 100%; */
   /* min-height: 100%; */
 
