@@ -1,4 +1,17 @@
-:root {
+html {
+  height:100%;
+  background-color: rgb(148, 232, 244);
+}
+
+body{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  /* flex: 1; */
+  min-height: 100%;
+}
+
+#root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -8,23 +21,45 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: rgb(148, 232, 244);
-}
-
-.feed-group {
+  display: flex;
 }
 
 .container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   max-width: 50em;
-  margin: auto;
   background-color: white;
   border-radius: 8px;
+  /* height: 100%; */
+  /* min-height: 100%; */
+
+  /* margin: auto; */
 }
 
 .content {
   padding: 10px;
+  flex: 1;
+  min-height:0;
+  /* overflow-y: scroll; */
 }
 
+.feed-group {
+
+}
+
+.feed-list {
+  padding-left: 0;
+}
+
+.feed-info {
+  display: flex;
+  list-style: none;
+  border: 1px solid blue;
+}
+
+
+/* topbar items */
 
 .topbar {
   display: flex;
@@ -49,6 +84,8 @@
   padding: 0 5px 0 5px;
 }
 
+/* footer */
+
 .footer {
   text-align: center;
   padding: 5px 0 5px 0;
@@ -62,6 +99,8 @@
 
 }
 
+/* x-scrollable feed */
+
 .article-preview {
   /* border-left: 2px solid rgb(255, 220, 80); */
 }
@@ -73,7 +112,6 @@
   padding-left: 0;
   scroll-snap-type: x mandatory;
   border: 1px solid green;
-  margin: 0;
 }
 
 .carousel-article {
