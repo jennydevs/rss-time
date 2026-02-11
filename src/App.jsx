@@ -1,8 +1,10 @@
 import rehypeSanitize from 'rehype-sanitize';
 
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect, createContext, useContext } from 'react';
 import Home from './pages/Home.jsx';
+import Settings from './pages/Settings.jsx';
+import Topbar from './components/Topbar.jsx';
+import Footer from './components/Footer.jsx';
 
 
 function Article({item}) {
@@ -69,8 +71,12 @@ function getItemsData(doc) {
 
 
 function App(){
+    const [curr_page, setCurrPage] = useState("home");
     const [channel, setChannel] = useState([]);
     const [articles, setArticles] = useState([]); 
+
+    const [feed_links, setFeedLinks] = useState([]);
+    const FeedContext = createContext(null);
 
     useEffect(() => {
         async function getRSSFeed() {
@@ -93,10 +99,15 @@ function App(){
     }, []);
 
     return(
-        <div className='app'>
-            <Home/>
-            {/* { !channel ? <p>Loading</p> : <div>{channel}</div> }
-            { !articles ? <p>Loading...</p> : <div>{articles} </div> } */}
+        <div className='container'>
+            <div className='content'>
+                <Topbar title={curr_page == 'home' ? "RSS FEED" : "SETTINGS"} setCurrPage={setCurrPage}/>
+                {
+                    curr_page == 'home' ? <Home/> : <Settings/>
+                }
+                <Home />
+            </div>
+            <Footer/>
         </div>
     );
 }

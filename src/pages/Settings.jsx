@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import Topbar from '../components/Topbar.jsx';
-import Footer from '../components/Footer.jsx';
+import { useState, createContext } from 'react';
 import FeedList from '../components/FeedList.jsx';
 
 
@@ -37,14 +35,10 @@ function Settings() {
     const [feed_links, setFeedLinks] = useState([]);
 
     return (
-        <div className='container'>
-            <div className='content'>
-                <Topbar/>
-                <AddLink feed_links={feed_links} setFeedLinks={setFeedLinks}/>
-                <FeedList feed_links={feed_links}/>
-            </div>
-            <Footer/>
-        </div>
+        <>
+            <AddLink feed_links={feed_links} setFeedLinks={setFeedLinks}/>
+            <FeedList feed_links={feed_links}/>
+        </>
     );
 }
 

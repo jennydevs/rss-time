@@ -1,6 +1,4 @@
-import {lazy} from 'react';
-import Topbar from '../components/Topbar.jsx';
-import Footer from '../components/Footer.jsx';
+import { lazy, useContext } from 'react';
 
 const FeedGroup = lazy(() => import('../components/FeedGroup.jsx'));
 
@@ -17,76 +15,16 @@ function Home() {
                     'title': "The world is a vast place to explore.",
                     'date': "September 24, 2025"
                 },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
-                {
-                    'title': "The world is a vast place to explore.",
-                    'date': "September 24, 2025"
-                },
             ]
-
     }];
+
+    // const feed_data = useContext(FeedContext);
+
+
     return (
-        <div className='container'>
-            <div className='content'>
-                <Topbar/>
-                <FeedGroup data={data}/>
-                <FeedGroup data={data}/>
-                <FeedGroup data={data}/>
-                <FeedGroup data={data}/>
-            </div>
-            <Footer/>
-        </div>
+        <>
+            {/* <FeedGroup data={data}/> */}
+        </>
     );
 }
 
