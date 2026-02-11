@@ -4,16 +4,20 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
+import Error from './pages/Error.jsx';
 import './App.css';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home/>
+    element: <Home/>,
+    errorElement: <Error />,
   },
   {
     path: '/settings',
-    element: <Settings/>
+    element: <Settings/>,
+    errorElement: <Error />,
   }
 ]);
 
