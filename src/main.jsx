@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router/dom';
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
 import Error from './pages/Error.jsx';
-import './App.css';
+import './styles.css';
 
 
 const router = createBrowserRouter([
