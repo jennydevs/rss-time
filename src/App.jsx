@@ -19,14 +19,6 @@ function Article({item}) {
 }
 
 
-function ChannelDetails({data}) {
-    return (
-        <>
-            <h1><a href={data.link}>{data.title}</a></h1>
-        </>
-    );
-}
-
 function getChannelData(doc) {
     console.log(doc)
     let channel = doc.getElementsByTagName('channel');
@@ -43,7 +35,7 @@ function getChannelData(doc) {
         }
     }
 
-    return (<ChannelDetails data={content}/>);
+    return [content];
 }
 
 

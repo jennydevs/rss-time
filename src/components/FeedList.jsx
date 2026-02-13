@@ -1,40 +1,35 @@
+import { useState, useEffect } from 'react';
 
-function combineInfo(feed_links, channels) {
-
-}
-
-
-function createFeedBlobs(feed_links, channels) {
+function setupChannelDetails(feed_links, channels) {
+    let collection = [];
     for (let i = 0; i < feed_links.length; i++ ) {
-        
+        collection.push(<ChannelDetails key={feed_links[i]} feed_link={feed_links[i]} channel={channels[i][0]}/>);
     }
- channels.map((channel) => {
-                            feed_links.map((feed_link) => 
-                                <li className='feed-info'>
-                                    <FeedBlob feed_info={feed_link} channel={channel}/>
-                                </li>
-                            )
-                        })
+
+    return collection;
 }
 
 
-function FeedBlob({feed_info, channel}) {
+function ChannelDetails({feed_link, channel}) {
     return (
         <>
-            <h3>{feed_info}</h3>
+            <h1><a href={channel.link}>{channel.title}</a></h1>
+            <p>location: {feed_link}</p>
         </>
     );
 }
 
 
 function FeedList({feed_links, channels}) {
+    const [feeds, setFeeds] = useState([]);
+    useEffect(() => {
+        setFeeds(setupChannelDetails(feed_links, channels));
+    }, [channels.length]);
     return (
         <>
             {
-                (feed_links.length) == 0 && (channels.length == 0) ? <p>No feeds yet!</p> :
-                    <ul className='feed-list'>
-                        { createFeedBlobs(feed_links, channels) }
-                    </ul>
+                channels.length == 0 ? <p>No feeds yet!</p> :
+                    <ul className='feed-list'>{feeds}</ul>
             }
         </>
     );
