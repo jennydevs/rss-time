@@ -1,6 +1,6 @@
 import rehypeSanitize from 'rehype-sanitize';
 
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
 import Topbar from './components/Topbar.jsx';
@@ -28,6 +28,7 @@ function ChannelDetails({data}) {
 }
 
 function getChannelData(doc) {
+    console.log(doc)
     let channel = doc.getElementsByTagName('channel');
     const tags = ['title', 'link', 'description', 'language', 'docs', 'ttl'];
 
@@ -70,42 +71,80 @@ function getItemsData(doc) {
 }
 
 
+async function getFeeds(feed_links, setChannels) {
+    let xml_doc = null;
+    async function getRSSFeed(feed_link) {
+    await fetch("./rss_examples/" + feed_link)
+    .then((response)=> {
+        return response.text();
+    })
+    .then((rss_feed) => {
+        let parser = new DOMParser();
+        xml_doc = parser.parseFromString(rss_feed, "text/xml");
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return xml_doc;
+}
+
+    let channels = [];
+    let articles = [];
+    for (let i = 0; i < feed_links.length; i++) {
+        let xml_doc = await getRSSFeed(feed_links[i]);
+        // await getRSSFeed(feed_links[i]).then((xml_doc) => {
+        //     console.log(xml_doc)
+        // });
+        channels.push(getChannelData(xml_doc));
+        // setChannel(getChannelData(xml_doc));
+        // setArticles(getItemsData(xml_doc));
+    }
+
+    setChannels(channels);
+}
+
+
 function App(){
     const [curr_page, setCurrPage] = useState("home");
-    const [channel, setChannel] = useState([]);
+    const [channels, setChannels] = useState([]);
     const [articles, setArticles] = useState([]); 
 
     const [feed_links, setFeedLinks] = useState([]);
-    const FeedContext = createContext(null);
+    
+
+    // useEffect(() => {
+    //     async function getRSSFeed() {
+    //         await fetch("./rss_examples/...")
+    //         .then((response)=> {
+    //             return response.text();
+    //         })
+    //         .then((rss_feed) => {
+    //             let parser = new DOMParser();
+    //             let xml_doc = parser.parseFromString(rss_feed, "text/xml");
+    //             setChannel(getChannelData(xml_doc));
+    //             setArticles(getItemsData(xml_doc))
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    //     }
+
+    //     // getRSSFeed();
+    // }, []);
 
     useEffect(() => {
-        async function getRSSFeed() {
-            await fetch("./rss_examples/...")
-            .then((response)=> {
-                return response.text();
-            })
-            .then((rss_feed) => {
-                let parser = new DOMParser();
-                let xml_doc = parser.parseFromString(rss_feed, "text/xml");
-                setChannel(getChannelData(xml_doc));
-                setArticles(getItemsData(xml_doc))
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        }
-
-        // getRSSFeed();
-    }, []);
+        console.log("feed_links updated!");
+        getFeeds(feed_links, setChannels);
+    }, [feed_links])
 
     return(
         <div className='container'>
             <div className='content'>
                 <Topbar title={curr_page == 'home' ? "RSS FEED" : "SETTINGS"} setCurrPage={setCurrPage}/>
                 {
-                    curr_page == 'home' ? <Home/> : <Settings/>
+                    curr_page == 'home' ? <Home feed_links={feed_links} /> : <Settings feed_links={feed_links} setFeedLinks={setFeedLinks} channels={channels} />
                 }
-                <Home />
             </div>
             <Footer/>
         </div>

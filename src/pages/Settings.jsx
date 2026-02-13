@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState } from 'react';
 import FeedList from '../components/FeedList.jsx';
 
 
@@ -21,7 +21,7 @@ function AddLink({feed_links, setFeedLinks}) {
         <>
             <form method='post' onSubmit={handleSubmit}>
                 <label>
-                    Add RSS feed link: 
+                    RSS feed link: 
                     <input name='feed_link' required/>
                 </label>
                 <button type='submit'>Add</button>
@@ -31,13 +31,11 @@ function AddLink({feed_links, setFeedLinks}) {
 }
 
 
-function Settings() {
-    const [feed_links, setFeedLinks] = useState([]);
-
+function Settings({feed_links, setFeedLinks, channels}) {
     return (
         <>
             <AddLink feed_links={feed_links} setFeedLinks={setFeedLinks}/>
-            <FeedList feed_links={feed_links}/>
+            <FeedList feed_links={feed_links} channels={channels}/>
         </>
     );
 }

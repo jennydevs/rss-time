@@ -7,7 +7,7 @@ function Carousel({articles}) {
             <ul className='carousel'>
                 {
                     articles.map((article) => 
-                        <li className='carousel-article'><ArticlePreview key={0} article={article}/></li>
+                        <li className='carousel-article'><ArticlePreview article={article}/></li>
                 )}
             </ul>
         </div>
