@@ -123,3 +123,17 @@ body{
   flex: 0 0 33%;
   scroll-snap-align: start;
 }
+
+.modal {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: absolute;
+  top: 20%;
+  left:50%;
+  max-width: 50em;
+  max-height: 60vh;
+  transform: translateX(-50%);
+  border: 1px solid black;
+}
