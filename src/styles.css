@@ -1,12 +1,17 @@
 html {
   height:100%;
   background-color: rgb(148, 232, 244);
+  color: rgb(30, 44, 149);
 }
 
 body{
   margin: 0;
   display: flex;
   min-height: 100%;
+}
+
+img {
+  width: 100%;
 }
 
 #root {
@@ -65,18 +70,16 @@ body{
 .topbar {
   display: flex;
   justify-content: space-between;
-  border: 1px solid blue;
+  background-color: rgb(255, 220, 80);
 }
 
 .topbar-nav {
-  border: 1px solid red;
   align-self: flex-end;
 }
 
 .topbar-links {
   display: flex;
   margin: auto;
-  border: 1px solid orange;
   list-style: none;
   padding-left: 0;
 }
@@ -111,16 +114,18 @@ body{
   overflow-x: auto;
   align-items: stretch;
   padding-left: 0;
-  scroll-snap-type: x mandatory;
-  border: 1px solid green;
+  scrollbar-color: rgb(148, 232, 244) white; 
+  /* scroll-snap-type: x mandatory; */
 }
 
 .carousel-article {
-  border-left: 1px solid orange;
-  border-right: 1px solid orange;
+  border: 3px solid rgb(148, 232, 244);
+  border-radius: 8px;
   list-style: none;
   flex: 0 0 33%;
   scroll-snap-align: start;
+  margin-right: 5px;
+  padding: 5px;
 }
 
 .modal-group {
@@ -139,13 +144,22 @@ body{
 .modal-content {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   background-color: white;
   overflow-y: auto;
   position: fixed;
-  top: 20%;
+  top: 10%;
   left: 50%;
-  max-width: 60em;
-  max-height: 60vh;
+  max-width: 55em;
+  max-height: 70vh;
   transform: translateX(-50%);
-  border: 1px solid black;
+
+  padding: 25px;
+  border: 3px solid rgb(148, 232, 244);
+  border-radius: 8px;
+}
+
+.html-content {
+
+  padding: 5px 0 5px 0;
 }

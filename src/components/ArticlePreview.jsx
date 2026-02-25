@@ -7,11 +7,11 @@ function ArticlePreview({article}) {
 
     return (
         <>
-        <div className='article-preview' onClick={() => {setOpened(true)}}>
-            <header>{article.title}</header>
-            <p>{article.pubDate}</p>
-        </div>
-        {opened && createPortal(<ArticleSummary setOpened={setOpened} summary={article}/>, document.body)}
+            <div className='article-preview' style={{textAlign:'center'}} onClick={() => {setOpened(true)}}>
+                <h4>{article.title}</h4>
+                <time>{article.pubDate}</time>
+            </div>
+            {opened && createPortal(<ArticleSummary setOpened={setOpened} summary={article}/>, document.body)}
         </>
     );
 }
