@@ -5,9 +5,10 @@ function ArticleSummary({setOpened, summary}) {
         <div className='modal-group'>
             <div className='modal-bg' onClick={() => setOpened(false)} />
             <div className='modal-content'>
-                <p>{summary.title}</p>
-                <p>{summary.pubDate}</p>
-                <p>{summary.description}</p>
+                <h4>{summary.title}</h4>
+                <time>{summary.pubDate}</time>
+                
+                {/* <div className='html-content' dangerouslySetInnerHTML={{__html: summary.description}}></div> */}
                 <button onClick={() => setOpened(false)}>Close</button>
             </div>
         </div>
