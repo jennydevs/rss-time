@@ -28,7 +28,7 @@ function getChannelData(doc) {
 }
 
 
-function getItemsData(doc) {
+async function getItemsData(doc) {
     let items = doc.getElementsByTagName('item');
     const tags = ['title', 'link', 'description', 'guid', 'pubDate'];
 
@@ -38,7 +38,22 @@ function getItemsData(doc) {
         for (let j = 0; j < tags.length; j++) {
             let tag_items = items[i].getElementsByTagName(tags[j]);
             if (tag_items.length != 0) {
+                if (tags[j] == 'description') {
+                    let curr_str = tag_items[0].textContent;
+                    let sanitized_content = String(
+                        await unified()
+                        .use(rehypeParse, {fragment: true})
+                        .use(rehypeSanitize)
+                        .use(rehypeStringify)
+                        .process(curr_str));
+
+                    console.log("sanitized!", curr_str);
+                    console.log("resulting", sanitized_content)
+                    content[tags[j]] = sanitized_content;
+                }
+                else {
                 content[tags[j]] = tag_items[0].textContent;
+                }
             } 
             else {
                 content[tags[j]] = null;
@@ -62,6 +77,7 @@ async function getFeeds(feed_links, setChannels, setArticles) {
     .then((rss_feed) => {
         let parser = new DOMParser();
         xml_doc = parser.parseFromString(rss_feed, "text/xml");
+        console.log(xml_doc)
     })
     .catch((error) => {
         console.error(error);
@@ -75,7 +91,7 @@ async function getFeeds(feed_links, setChannels, setArticles) {
     for (let i = 0; i < feed_links.length; i++) {
         let xml_doc = await getRSSFeed(feed_links[i]);
         channels.push(getChannelData(xml_doc));
-        articles.push(getItemsData(xml_doc));
+        articles.push(await getItemsData(xml_doc));
     }
 
     setChannels(channels);
@@ -98,7 +114,8 @@ function App(){
             <Topbar title={curr_page == 'home' ? "RSS FEED" : "SETTINGS"} setCurrPage={setCurrPage}/>
             <div className='content'>
                 {
-                    curr_page == 'home' ? <Home channels={channels} articles={articles} /> : <Settings feed_links={feed_links} setFeedLinks={setFeedLinks} channels={channels} />
+                    curr_page == 'home' ? <Home channels={channels} articles={articles} /> : 
+                    <Settings feed_links={feed_links} setFeedLinks={setFeedLinks} channels={channels} />
                 }
             </div>
             <Footer/>
