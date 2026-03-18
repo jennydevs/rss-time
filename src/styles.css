@@ -10,9 +10,6 @@ body{
   min-height: 100%;
 }
 
-img {
-  width: 100%;
-}
 
 #root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -29,6 +26,19 @@ img {
   flex: 1;
 }
 
+/* elements */ 
+
+img {
+  width: 100%;
+}
+
+hr {
+    border: 1px solid rgb(255, 220, 80);
+    border-radius: 8px;
+}
+
+/* outer box for content */
+
 .container {
   display: flex;
   flex: 1;
@@ -37,22 +47,15 @@ img {
   border-radius: 8px;
 
   max-width: 50em;
-  /* height: 100%; */
-  /* min-height: 100%; */
-
-  /* margin: auto; */
 }
 
 .content {
-  padding: 10px;
+  padding: 20px;
   flex: 1;
   min-height:0;
-  /* overflow-y: scroll; */
 }
 
-.feed-group {
-
-}
+/* feed */
 
 .feed-list {
   padding-left: 0;
@@ -64,13 +67,15 @@ img {
   border: 1px solid blue;
 }
 
-
 /* topbar items */
 
 .topbar {
   display: flex;
   justify-content: space-between;
   background-color: rgb(255, 220, 80);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0 20px 10px 20px;
 }
 
 .topbar-nav {
@@ -95,31 +100,20 @@ img {
   padding: 5px 0 5px 0;
 }
 
-.app {
-
-}
-
-.home {
-
-}
 
 /* x-scrollable feed */
-
-.article-preview {
-  /* border-left: 2px solid rgb(255, 220, 80); */
-}
 
 .carousel {
   display: flex;
   overflow-x: auto;
   align-items: stretch;
   padding-left: 0;
-  scrollbar-color: rgb(148, 232, 244) white; 
+  scrollbar-color: rgb(255, 228, 159) white; 
   /* scroll-snap-type: x mandatory; */
 }
 
 .carousel-article {
-  border: 3px solid rgb(148, 232, 244);
+  border: 2px solid rgb(148, 232, 244);
   border-radius: 8px;
   list-style: none;
   flex: 0 0 33%;
@@ -127,6 +121,8 @@ img {
   margin-right: 5px;
   padding: 5px;
 }
+
+/* modal */
 
 .modal-group {
   position: fixed;
@@ -159,7 +155,8 @@ img {
   border-radius: 8px;
 }
 
-.html-content {
+/* inside content */
 
+.html-content {
   padding: 5px 0 5px 0;
 }
