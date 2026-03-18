@@ -28,13 +28,13 @@ function FeedList({feed_links, channels}) {
         setFeeds(setupChannelDetails(feed_links, channels));
     }, [channels.length]);
     return (
-        <>
+        <div>
             {
                 channels.length == 0 ? <p>No feeds yet!</p> :
                     <ul className='feed-list'>{feeds}</ul>
             }
             <hr />
-        </>
+        </div>
     );
 }
 
