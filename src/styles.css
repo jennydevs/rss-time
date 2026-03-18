@@ -138,7 +138,7 @@ hr {
   background-color: #fffcb2;
   box-shadow: 1px 5px 2px rgb(192, 137, 99);
   list-style: none;
-  flex: 0 0 33%;
+  flex: 0 0 31%;
   scroll-snap-align: start;
   margin-right: 5px;
   padding: 5px;
@@ -161,10 +161,11 @@ hr {
 }
 
 .modal-content {
+  background-color: #fffcb2;
+  box-shadow: 1px 5px 2px rgb(123, 79, 48);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: white;
   overflow-y: auto;
   position: fixed;
   top: 10%;
@@ -174,8 +175,7 @@ hr {
   transform: translateX(-50%);
 
   padding: 25px;
-  border: 3px solid rgb(148, 232, 244);
-  border-radius: 8px;
+
 }
 
 /* inside content */
