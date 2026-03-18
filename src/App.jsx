@@ -41,6 +41,7 @@ async function sanitizeContent(curr_str) {
 
 async function getItemsData(doc) {
     let items = doc.getElementsByTagName('item');
+    
     const tags = ['title', 'link', 'description', 'guid', 'pubDate'];
 
     let items_list = [];
@@ -50,7 +51,7 @@ async function getItemsData(doc) {
             let tag_items = items[i].getElementsByTagName(tags[j]);
             if (tag_items.length != 0) {
                 let curr_str = tag_items[0].textContent;
-                if (tags[j] == 'description') {
+                if (tags[j] == 'description' || tags[j] == 'title') {
                     if (tag_items[0].childNodes[0].nodeName == '#cdata-section') {
                         content[tags[j]] = await sanitizeContent(tag_items[0].childNodes[0].data);
                     }
