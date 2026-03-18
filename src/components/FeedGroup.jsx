@@ -3,7 +3,7 @@ import Carousel from "./Carousel.jsx";
 
 function FeedGroup({ channel, articles}) {
     return (
-        <div className='feed-group'>
+        <div>
             <>{
                 !channel || !articles? <p>Loading feed...</p> : 
                 <>
