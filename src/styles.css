@@ -71,6 +71,7 @@ hr {
 
 .feed-title {
   background-color: white;
+  box-shadow: 1px 2px 2px rgb(192, 137, 99);
   border-top: 5px solid orange;
   border-bottom: 5px solid orange;
   padding: 2px;
