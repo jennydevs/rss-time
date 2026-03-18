@@ -52,7 +52,7 @@ async function getItemsData(doc) {
                 let curr_str = tag_items[0].textContent;
                 if (tags[j] == 'description') {
                     if (tag_items[0].childNodes[0].nodeName == '#cdata-section') {
-                        console.log("cdata")
+                        content[tags[j]] = await sanitizeContent(tag_items[0].childNodes[0].data);
                     }
                     else {
                         content[tags[j]] = await sanitizeContent(curr_str); // normal string
