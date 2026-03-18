@@ -10,9 +10,6 @@ body{
   min-height: 100%;
 }
 
-img {
-  width: 100%;
-}
 
 #root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -29,29 +26,55 @@ img {
   flex: 1;
 }
 
+/* elements */ 
+
+img {
+  width: 100%;
+}
+
+hr {
+    border: 1px solid rgb(255, 220, 80);
+    border-radius: 8px;
+}
+
+/* outer box for content */
+
 .container {
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: white;
   border-radius: 8px;
-
   max-width: 50em;
-  /* height: 100%; */
-  /* min-height: 100%; */
-
-  /* margin: auto; */
 }
 
 .content {
-  padding: 10px;
+  background-color: white;
+  padding: 20px;
   flex: 1;
   min-height:0;
-  /* overflow-y: scroll; */
 }
 
-.feed-group {
+/* feed */
 
+.feed-group {
+  padding-bottom: 30px;
+}
+
+.feed-bulletin {
+  padding: 10px;
+  background-color: burlywood;
+  border: 10px solid brown;
+  border-radius: 8px;
+  box-shadow: 1px 5px 2px rgb(192, 133, 80);
+}
+
+.feed-title {
+  background-color: white;
+  box-shadow: 1px 2px 2px rgb(192, 137, 99);
+  border-top: 5px solid orange;
+  border-bottom: 5px solid orange;
+  padding: 2px;
 }
 
 .feed-list {
@@ -64,13 +87,15 @@ img {
   border: 1px solid blue;
 }
 
-
 /* topbar items */
 
 .topbar {
   display: flex;
   justify-content: space-between;
   background-color: rgb(255, 220, 80);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0 20px 10px 20px;
 }
 
 .topbar-nav {
@@ -93,40 +118,35 @@ img {
 .footer {
   text-align: center;
   padding: 5px 0 5px 0;
+  background-color: white;
 }
 
-.app {
-
-}
-
-.home {
-
-}
 
 /* x-scrollable feed */
-
-.article-preview {
-  /* border-left: 2px solid rgb(255, 220, 80); */
-}
 
 .carousel {
   display: flex;
   overflow-x: auto;
   align-items: stretch;
   padding-left: 0;
-  scrollbar-color: rgb(148, 232, 244) white; 
+  scrollbar-color: rgb(255, 228, 159) white; 
+  scrollbar-width: thin;
   /* scroll-snap-type: x mandatory; */
+  padding: 10px;
 }
 
 .carousel-article {
-  border: 3px solid rgb(148, 232, 244);
-  border-radius: 8px;
+  background-color: #fffcb2;
+  box-shadow: 1px 5px 2px rgb(192, 137, 99);
   list-style: none;
-  flex: 0 0 33%;
+  flex: 0 0 31%;
   scroll-snap-align: start;
   margin-right: 5px;
   padding: 5px;
+  padding-bottom: 20px;
 }
+
+/* modal */
 
 .modal-group {
   position: fixed;
@@ -142,10 +162,11 @@ img {
 }
 
 .modal-content {
+  background-color: #fffcb2;
+  box-shadow: 1px 5px 2px rgb(123, 79, 48);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: white;
   overflow-y: auto;
   position: fixed;
   top: 10%;
@@ -155,11 +176,11 @@ img {
   transform: translateX(-50%);
 
   padding: 25px;
-  border: 3px solid rgb(148, 232, 244);
-  border-radius: 8px;
+
 }
 
-.html-content {
+/* inside content */
 
+.html-content {
   padding: 5px 0 5px 0;
 }

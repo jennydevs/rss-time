@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import FeedList from '../components/FeedList.jsx';
 
 
@@ -21,7 +20,7 @@ function AddLink({feed_links, setFeedLinks}) {
         <>
             <form method='post' onSubmit={handleSubmit}>
                 <label>
-                    RSS feed link: 
+                    Input RSS feed link: 
                     <input name='feed_link' required/>
                 </label>
                 <button type='submit'>Add</button>

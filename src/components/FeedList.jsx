@@ -12,10 +12,12 @@ function setupChannelDetails(feed_links, channels) {
 
 function ChannelDetails({feed_link, channel}) {
     return (
-        <>
-            <h1><a href={channel.link}>{channel.title}</a></h1>
-            <p>location: {feed_link}</p>
-        </>
+        <li style={{listStyle:'none'}}>
+            <hr />
+            <h2><a href={channel.link}>{channel.title}</a></h2>
+            <p>{channel.description}</p>
+            <p>source: {feed_link}</p>
+        </li>
     );
 }
 
@@ -26,12 +28,13 @@ function FeedList({feed_links, channels}) {
         setFeeds(setupChannelDetails(feed_links, channels));
     }, [channels.length]);
     return (
-        <>
+        <div>
             {
                 channels.length == 0 ? <p>No feeds yet!</p> :
                     <ul className='feed-list'>{feeds}</ul>
             }
-        </>
+            <hr />
+        </div>
     );
 }
 

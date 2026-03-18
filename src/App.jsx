@@ -118,7 +118,7 @@ function App(){
 
     return(
         <div className='container'>
-            <Topbar title={curr_page == 'home' ? "RSS FEED" : "SETTINGS"} setCurrPage={setCurrPage}/>
+            <Topbar title={curr_page == 'home' ? "RSS FEEDS" : "SETTINGS"} setCurrPage={setCurrPage}/>
             <div className='content'>
                 {
                     curr_page == 'home' ? <Home channels={channels} articles={articles} /> : 

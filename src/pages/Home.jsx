@@ -18,17 +18,8 @@ function Home({channels, articles}) {
     }, [channels.length]);
 
     return (
-        <>
-            {
-                !feeds ? <p>No feeds on Home</p> : feeds 
-            }
-        </>
+        <>{ feeds.length == 0 ? <p>No feeds on Home</p> : feeds }</>
     );
 }
 
 export default Home;
-
-
-
-
-// (items_list.map((item) => <Article key={item.guid} item={item}/>));
