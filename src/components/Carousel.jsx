@@ -1,4 +1,4 @@
-import ArticlePreview from './ArticlePreview.jsx';
+import ArticleGroup from './ArticleGroup.jsx';
 
 
 function Carousel({articles}) {
@@ -6,10 +6,7 @@ function Carousel({articles}) {
     return (
         <div>
             <ul className='carousel'>
-                {
-                    articles.map((article) => 
-                        <li className='carousel-article' key={article.guid}><ArticlePreview article={article}/></li>
-                )}
+                { articles.map((article) => <ArticleGroup article={article} />) }
             </ul>
         </div>
     );
