@@ -7,8 +7,7 @@ function ArticleSummary({setOpened, summary}) {
             <div className='modal-content'>
                 <h4>{summary.title}</h4>
                 <time>{summary.pubDate}</time>
-                
-                {/* <div className='html-content' dangerouslySetInnerHTML={{__html: summary.description}}></div> */}
+                <div className='html-content' dangerouslySetInnerHTML={{__html: summary.description}}></div>
                 <button onClick={() => setOpened(false)}>Close</button>
             </div>
         </div>
