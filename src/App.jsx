@@ -28,6 +28,17 @@ function getChannelData(doc) {
 }
 
 
+async function sanitizeContent(curr_str) {
+    return String(
+        await unified()
+        .use(rehypeParse, {fragment: true})
+        .use(rehypeSanitize)
+        .use(rehypeStringify)
+        .process(curr_str)
+    );
+}
+
+
 async function getItemsData(doc) {
     let items = doc.getElementsByTagName('item');
     const tags = ['title', 'link', 'description', 'guid', 'pubDate'];
@@ -38,21 +49,17 @@ async function getItemsData(doc) {
         for (let j = 0; j < tags.length; j++) {
             let tag_items = items[i].getElementsByTagName(tags[j]);
             if (tag_items.length != 0) {
+                let curr_str = tag_items[0].textContent;
                 if (tags[j] == 'description') {
-                    let curr_str = tag_items[0].textContent;
-                    let sanitized_content = String(
-                        await unified()
-                        .use(rehypeParse, {fragment: true})
-                        .use(rehypeSanitize)
-                        .use(rehypeStringify)
-                        .process(curr_str));
-
-                    console.log("sanitized!", curr_str);
-                    console.log("resulting", sanitized_content)
-                    content[tags[j]] = sanitized_content;
+                    if (tag_items[0].childNodes[0].nodeName == '#cdata-section') {
+                        console.log("cdata")
+                    }
+                    else {
+                        content[tags[j]] = await sanitizeContent(curr_str); // normal string
+                    }
                 }
                 else {
-                content[tags[j]] = tag_items[0].textContent;
+                    content[tags[j]] = curr_str;
                 }
             } 
             else {
@@ -77,7 +84,6 @@ async function getFeeds(feed_links, setChannels, setArticles) {
     .then((rss_feed) => {
         let parser = new DOMParser();
         xml_doc = parser.parseFromString(rss_feed, "text/xml");
-        console.log(xml_doc)
     })
     .catch((error) => {
         console.error(error);
