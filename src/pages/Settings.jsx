@@ -46,7 +46,9 @@ function AddLink({feed_links, setFeedLinks}) {
 function Settings({feed_links, setFeedLinks, channels}) {
     return (
         <div className='looseleaf'>
-            <div className='looseleaf-top' style={{marginBottom:'13px'}}><AddLink feed_links={feed_links} setFeedLinks={setFeedLinks}/></div>
+            <div className='looseleaf-top'>
+                <AddLink feed_links={feed_links} setFeedLinks={setFeedLinks}/>
+            </div>
             <FeedList feed_links={feed_links} channels={channels}/>
         </div>
     );
