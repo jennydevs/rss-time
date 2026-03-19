@@ -48,6 +48,7 @@ async function getItemsData(doc) {
     for (let i = 0; i < items.length; i++) {
         var content = {};
         for (let j = 0; j < tags.length; j++) {
+            content[tags[j]] = null;
             let tag_items = items[i].getElementsByTagName(tags[j]);
             if (tag_items.length != 0) {
                 let curr_str = tag_items[0].textContent;
@@ -62,9 +63,6 @@ async function getItemsData(doc) {
                 else {
                     content[tags[j]] = curr_str;
                 }
-            } 
-            else {
-                content[tags[j]] = null;
             }
         }
 
@@ -75,34 +73,38 @@ async function getItemsData(doc) {
 }
 
 
-async function getFeeds(feed_links, setChannels, setArticles) {
+async function getFeeds(feed_links, setChannels, setArticles, channels, articles) {
     let xml_doc = null;
+
     async function getRSSFeed(feed_link) {
-    await fetch("./rss_examples/" + feed_link)
-    .then((response)=> {
-        return response.text();
-    })
-    .then((rss_feed) => {
-        let parser = new DOMParser();
-        xml_doc = parser.parseFromString(rss_feed, "text/xml");
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+        await fetch("./rss_examples/" + feed_link)
+        .then((response)=> {
+            return response.text();
+        })
+        .then((rss_feed) => {
+            let parser = new DOMParser();
+            xml_doc = parser.parseFromString(rss_feed, "text/xml");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 
-    return xml_doc;
-}
-
-    let channels = [];
-    let articles = [];
-    for (let i = 0; i < feed_links.length; i++) {
-        let xml_doc = await getRSSFeed(feed_links[i]);
-        channels.push(getChannelData(xml_doc));
-        articles.push(await getItemsData(xml_doc));
+        return xml_doc;
     }
 
-    setChannels(channels);
-    setArticles(articles);
+    let channel_list = channels.slice();
+    let article_list = articles.slice();
+
+    for (let i = 0; i < feed_links.length; i++) {
+        if (feed_links[i]['fetched']) { continue; }
+        let xml_doc = await getRSSFeed(feed_links[i]['link']);
+        channel_list.push(getChannelData(xml_doc));
+        article_list.push(await getItemsData(xml_doc));
+        feed_links[i]['fetched'] = true;  
+    }
+
+    setChannels(channel_list);
+    setArticles(article_list);
 }
 
 
@@ -113,7 +115,7 @@ function App(){
     const [articles, setArticles] = useState([]); 
 
     useEffect(() => {
-        getFeeds(feed_links, setChannels, setArticles);
+        getFeeds(feed_links, setChannels, setArticles, channels, articles);
     }, [feed_links])
 
     return(

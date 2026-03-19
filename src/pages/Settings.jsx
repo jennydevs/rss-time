@@ -10,7 +10,20 @@ function AddLink({feed_links, setFeedLinks}) {
         
         let value = form_json["feed_link"];
         let links_collection = feed_links.slice();
-        links_collection.push(value);
+
+        for (let i = 0; i < links_collection.length; i++) {
+            if (links_collection[i]['link'] == value) {
+                alert("You already have this rss feed!");
+                return;
+            }
+        }
+
+        links_collection.push({
+            "link": value,
+            "fetched": false,
+        });
+        
+
         setFeedLinks(links_collection);
 
         form.reset();

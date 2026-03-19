@@ -6,7 +6,7 @@ function Carousel({articles}) {
     return (
         <div>
             <ul className='carousel'>
-                { articles.map((article) => <ArticleGroup article={article} />) }
+                { articles.map((article) => <ArticleGroup key={article['guid']} article={article} />) }
             </ul>
         </div>
     );
