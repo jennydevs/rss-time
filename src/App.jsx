@@ -48,6 +48,7 @@ async function getItemsData(doc) {
     for (let i = 0; i < items.length; i++) {
         var content = {};
         for (let j = 0; j < tags.length; j++) {
+            content[tags[j]] = null;
             let tag_items = items[i].getElementsByTagName(tags[j]);
             if (tag_items.length != 0) {
                 let curr_str = tag_items[0].textContent;
@@ -62,9 +63,6 @@ async function getItemsData(doc) {
                 else {
                     content[tags[j]] = curr_str;
                 }
-            } 
-            else {
-                content[tags[j]] = null;
             }
         }
 
