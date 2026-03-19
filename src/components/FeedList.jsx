@@ -12,11 +12,11 @@ function setupChannelDetails(feed_links, channels) {
 
 function ChannelDetails({feed_link, channel}) {
     return (
-        <li style={{listStyle:'none'}}>
-            <hr />
-            <h2><a href={channel.link}>{channel.title}</a></h2>
-            <p>{channel.description}</p>
-            <p>source: {feed_link}</p>
+        <li>
+            <p className='lined lined-title'><img className='hole' /><a href={channel.link}>{channel.title}</a></p>
+            <p className='lined'>{channel.description}</p>
+            <p className='lined'>source: {feed_link}</p>
+            <p className='looseleaf-line'>&nbsp;</p>
         </li>
     );
 }
@@ -30,10 +30,19 @@ function FeedList({feed_links, channels}) {
     return (
         <>
             {
-                channels.length == 0 ? <p>No feeds yet!</p> :
-                    <ul className='feed-list'>{feeds}</ul>
+                
+                channels.length == 0 ? 
+                    <>
+                        <p className='lined'>No feeds yet!</p>
+                        <p className='lined'>&nbsp;</p>
+                    </> 
+                    :
+                    <ul className='feed-list'>
+                        <p className='looseleaf-line'>&nbsp;</p>
+                        {feeds}
+                        <p className='looseleaf-line'>&nbsp;</p>
+                    </ul>
             }
-            <hr />
         </>
     );
 }
