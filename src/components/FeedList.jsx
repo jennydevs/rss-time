@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 function setupChannelDetails(feed_links, channels) {
     let collection = [];
     for (let i = 0; i < feed_links.length; i++ ) {
-        collection.push(<ChannelDetails key={feed_links[i]} feed_link={feed_links[i]} channel={channels[i][0]}/>);
+        collection.push(<ChannelDetails key={feed_links[i]['link']} feed_link={feed_links[i]['link']} channel={channels[i][0]}/>);
     }
 
     return collection;
@@ -28,13 +28,13 @@ function FeedList({feed_links, channels}) {
         setFeeds(setupChannelDetails(feed_links, channels));
     }, [channels.length]);
     return (
-        <div>
+        <>
             {
                 channels.length == 0 ? <p>No feeds yet!</p> :
                     <ul className='feed-list'>{feeds}</ul>
             }
             <hr />
-        </div>
+        </>
     );
 }
 
