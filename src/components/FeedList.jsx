@@ -12,7 +12,7 @@ function setupChannelDetails(feed_links, channels) {
 
 function ChannelDetails({feed_link, channel}) {
     return (
-        <li className='feed-info'>
+        <li>
             <p className='lined lined-title'><a href={channel.link}>{channel.title}</a></p>
             <p className='lined'>{channel.description}</p>
             <p className='lined'>source: {feed_link}</p>
