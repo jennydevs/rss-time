@@ -58,7 +58,7 @@ hr {
   min-height:0;
 }
 
-/* feed */
+/* feed on home page */
 
 .feed-group {
   padding-bottom: 30px;
@@ -85,14 +85,48 @@ hr {
   padding: 2px;
 }
 
+
+/* Settings feed list of channel info */
+
 .feed-list {
+  margin-top: 0;
   padding-left: 0;
+  list-style: none;
+  background-color:#fffcb2;
+}
+
+
+.looseleaf {
+  background-color: #fffcb2;
+  border-left: 2px solid rgb(255, 120, 120);
+}
+
+.looseleaf-top {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background-color:#fffcb2;
+  border-bottom: 2px solid rgb(125, 199, 217);
+  line-height: 40px;
+  
+}
+
+.looseleaf-item {
+  padding-left: 100px;
+  align-self: flex-end;
+}
+
+.looseleaf-line {
+  background-color:#fffcb2;
+  border-bottom: 2px solid rgb(125, 199, 217);
+}
+
+.lined {
+  padding-left: 100px;
+  border-bottom: 2px solid rgb(125, 199, 217);
 }
 
 .feed-info {
-  display: flex;
-  list-style: none;
-  border: 1px solid blue;
 }
 
 /* topbar items */
