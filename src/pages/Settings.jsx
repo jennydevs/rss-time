@@ -23,7 +23,6 @@ function AddLink({feed_links, setFeedLinks}) {
             "fetched": false,
         });
         
-
         setFeedLinks(links_collection);
 
         form.reset();
