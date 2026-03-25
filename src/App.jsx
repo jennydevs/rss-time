@@ -83,7 +83,6 @@ async function getFeeds(feed_links, setChannels, setArticles, channels, articles
             }
         })
         .then((response)=> {
-            console.log(response);
             if (response.status == 404) {
                 alert("RSS feed not found at this location!");
                 return "";
