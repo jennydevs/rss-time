@@ -73,15 +73,29 @@ async function getItemsData(doc) {
 }
 
 
-async function getFeeds(feed_links, setChannels, setArticles, channels, articles) {
-    let xml_doc = null;
-
+async function getFeeds(feed_links, setChannels, setArticles, channels, articles, setFeedLinks) {
     async function getRSSFeed(feed_link) {
-        await fetch("./rss_examples/" + feed_link)
+        let xml_doc = null;
+
+        await fetch(feed_link, {
+            headers: {
+                "Accept": "application/xml"
+            }
+        })
         .then((response)=> {
-            return response.text();
+            console.log(response);
+            if (response.status == 404) {
+                alert("RSS feed not found at this location!");
+                return "";
+            }
+
+            if (response.ok) {
+                return response.text();
+            }
         })
         .then((rss_feed) => {
+            if (rss_feed == "") { return null; }
+
             let parser = new DOMParser();
             xml_doc = parser.parseFromString(rss_feed, "text/xml");
         })
@@ -95,16 +109,22 @@ async function getFeeds(feed_links, setChannels, setArticles, channels, articles
     let channel_list = channels.slice();
     let article_list = articles.slice();
 
-    for (let i = 0; i < feed_links.length; i++) {
-        if (feed_links[i]['fetched']) { continue; }
-        let xml_doc = await getRSSFeed(feed_links[i]['link']);
+    if (feed_links.length > 0 && feed_links[feed_links.length - 1]['fetched']) { return; }
+    let xml_doc = await getRSSFeed(feed_links[feed_links.length - 1]['link']);
+
+    if (!xml_doc) {
+        let feed_links_arr = feed_links.slice();
+        feed_links_arr.pop();
+        setFeedLinks(feed_links_arr);
+    }
+    else if (!feed_links[feed_links.length - 1]['fetched']){
         channel_list.push(getChannelData(xml_doc));
         article_list.push(await getItemsData(xml_doc));
-        feed_links[i]['fetched'] = true;  
-    }
+        feed_links[feed_links.length - 1]['fetched'] = true; 
 
-    setChannels(channel_list);
-    setArticles(article_list);
+        setChannels(channel_list);
+        setArticles(article_list);
+    }
 }
 
 
@@ -115,7 +135,10 @@ function App(){
     const [articles, setArticles] = useState([]); 
 
     useEffect(() => {
-        getFeeds(feed_links, setChannels, setArticles, channels, articles);
+        if (feed_links.length == 0) {
+            return;
+        }
+        getFeeds(feed_links, setChannels, setArticles, channels, articles, setFeedLinks);
     }, [feed_links])
 
     return(
