@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     errorElement: <Error/>
   },
 ],
-{ basename: '/' });
+{ basename: '/rss-time/' });
 
 
 createRoot(document.getElementById('root')).render(
