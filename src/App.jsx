@@ -79,7 +79,8 @@ async function getFeeds(feed_links, setChannels, setArticles, channels, articles
 
         await fetch(feed_link, {
             headers: {
-                "Accept": "application/xml"
+                "Accept": "application/xml",
+                "Access-Control-Allow-Origin": "*"
             }
         })
         .then((response)=> {
