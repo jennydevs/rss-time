@@ -73,58 +73,37 @@ async function getItemsData(doc) {
 }
 
 
-async function getFeeds(feed_links, setChannels, setArticles, channels, articles, setFeedLinks) {
-    async function getRSSFeed(feed_link) {
-        let xml_doc = null;
-
-        await fetch(feed_link, {
-            headers: {
-                "Accept": "application/xml",
-                "Access-Control-Allow-Origin": "*"
-            }
-        })
-        .then((response)=> {
-            if (response.status == 404) {
-                alert("RSS feed not found at this location!");
-                return "";
-            }
-
-            if (response.ok) {
-                return response.text();
-            }
-        })
-        .then((rss_feed) => {
-            if (rss_feed == "") { return null; }
-
-            let parser = new DOMParser();
-            xml_doc = parser.parseFromString(rss_feed, "text/xml");
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-
-        return xml_doc;
-    }
-
-    let channel_list = channels.slice();
-    let article_list = articles.slice();
-
+async function getFeed(feed_links, channels, articles, setFeedLinks, setChannels, setArticles) {
     if (feed_links.length > 0 && feed_links[feed_links.length - 1]['fetched']) { return; }
-    let xml_doc = await getRSSFeed(feed_links[feed_links.length - 1]['link']);
+    let feed_link = feed_links[feed_links.length - 1]['link'];
 
-    if (!xml_doc) {
-        let feed_links_arr = feed_links.slice();
-        feed_links_arr.pop();
-        setFeedLinks(feed_links_arr);
-    }
-    else if (!feed_links[feed_links.length - 1]['fetched']){
-        channel_list.push(getChannelData(xml_doc));
-        article_list.push(await getItemsData(xml_doc));
-        feed_links[feed_links.length - 1]['fetched'] = true; 
+    let xml_doc = null;
+    let xml_request = new XMLHttpRequest();
+    xml_request.open("GET", feed_link);
+    xml_request.setRequestHeader("Accept", "application/rss+xml", "application/xml", "text/xml");
+    xml_request.send(null);
+    xml_request.onload = async () => {
+        if (xml_request.readyState == xml_request.DONE && xml_request.status == 200) {
+            xml_doc = xml_request.responseXML;
+        }
 
-        setChannels(channel_list);
-        setArticles(article_list);
-    }
+        let channel_list = channels.slice();
+        let article_list = articles.slice();
+
+        if (!xml_doc) {
+            let feed_links_arr = feed_links.slice();
+            feed_links_arr.pop();
+            setFeedLinks(feed_links_arr);
+        }
+        else if (!feed_links[feed_links.length - 1]['fetched']){
+            channel_list.push(getChannelData(xml_doc));
+            article_list.push(await getItemsData(xml_doc));
+            feed_links[feed_links.length - 1]['fetched'] = true; 
+
+            setChannels(channel_list);
+            setArticles(article_list);
+        }
+    };
 }
 
 
@@ -135,10 +114,8 @@ function App(){
     const [articles, setArticles] = useState([]); 
 
     useEffect(() => {
-        if (feed_links.length == 0) {
-            return;
-        }
-        getFeeds(feed_links, setChannels, setArticles, channels, articles, setFeedLinks);
+        if (feed_links.length == 0) { return; }
+        getFeed(feed_links, channels, articles, setFeedLinks, setChannels, setArticles);
     }, [feed_links])
 
     return(
